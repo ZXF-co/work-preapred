@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxf.workPrepared.mapper.LoginUserMapper">
+
+    <resultMap id="baseResultMap" type="com.zxf.workPrepared.entity.LoginUser">
+        <id column="ID" property="id" jdbcType="VARCHAR"></id>
+        <result column="PASSWORD" property="password" jdbcType="VARCHAR"></result>
+        <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR"></result>
+        <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR"></result>
+        <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP"></result>
+    </resultMap>
+
+    <sql id="base_table">login_user</sql>
+    <sql id="base_column">
+        U.ID, U.PASSWORD, U.CREATE_USER_ID, U.CREATE_USER_NAME, U.CREATE_DATE
+    </sql>
+
+    <!--通过id查询user信息-->
+    <select id="findById" parameterType="java.lang.String" resultMap="baseResultMap">
+        SELECT
+        <include refid="base_column"/>
+        FROM
+        <include refid="base_table"/>
+        AS U
+        WHERE U.ID=#{id}
+    </select>
+
+</mapper>

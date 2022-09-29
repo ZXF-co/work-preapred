@@ -1,0 +1,37 @@
+server:
+  port: 8001
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/test
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 125728
+    name: test
+
+  # 配置swagger2文档,解决报错
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  # 配置Redis
+  redis:
+    host: localhost
+    port: 6379
+    database: 1
+    connect-timeout: 5000
+    jedis:
+      pool:
+        max-active: 10
+        max-idle: 10
+        max-wait: 10000
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.zxf.workPrepared.entity
+
+logging:
+  level:
+    com.zxf.workPrepared.mapper: debug
+  file:
+    name: D:\Programing\IDEA-workspace\work-preapred\logs\info.log

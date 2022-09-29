@@ -1,0 +1,24 @@
+2022-09-29 14:13:42.524  INFO 11192 --- [main] c.z.w.WorkPreparedApplication            : Starting WorkPreparedApplication using Java 1.8.0_301 on LAPTOP-CVNDNMJ6 with PID 11192 (D:\Programing\IDEA-workspace\work-preapred\target\classes started by zxf in D:\Programing\IDEA-workspace\work-preapred)
+2022-09-29 14:13:42.527  INFO 11192 --- [main] c.z.w.WorkPreparedApplication            : No active profile set, falling back to 1 default profile: "default"
+2022-09-29 14:13:43.549  INFO 11192 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2022-09-29 14:13:43.551  INFO 11192 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-09-29 14:13:43.575  INFO 11192 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+2022-09-29 14:13:44.044  INFO 11192 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8001 (http)
+2022-09-29 14:13:44.051  INFO 11192 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-09-29 14:13:44.051  INFO 11192 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-09-29 14:13:44.175  INFO 11192 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-09-29 14:13:44.175  INFO 11192 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1602 ms
+2022-09-29 14:13:44.931  INFO 11192 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2022-09-29 14:13:45.231  INFO 11192 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8001 (http) with context path ''
+2022-09-29 14:13:45.233  INFO 11192 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2022-09-29 14:13:45.244  INFO 11192 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2022-09-29 14:13:45.271  INFO 11192 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2022-09-29 14:13:45.433  INFO 11192 --- [main] c.z.w.WorkPreparedApplication            : Started WorkPreparedApplication in 3.326 seconds (JVM running for 4.124)
+2022-09-29 14:13:53.339  INFO 11192 --- [http-nio-8001-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-09-29 14:13:53.339  INFO 11192 --- [http-nio-8001-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-09-29 14:13:53.339  INFO 11192 --- [http-nio-8001-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2022-09-29 14:13:53.410  INFO 11192 --- [http-nio-8001-exec-2] com.zaxxer.hikari.HikariDataSource       : test - Starting...
+2022-09-29 14:13:53.551  INFO 11192 --- [http-nio-8001-exec-2] com.zaxxer.hikari.HikariDataSource       : test - Start completed.
+2022-09-29 14:13:53.560 DEBUG 11192 --- [http-nio-8001-exec-2] c.z.workPrepared.mapper.UserMapper.find  : ==>  Preparing: SELECT U.ID, U.NAME, U.GENDER, U.AGE, U.PHONE, U.DESCRIPTION, U.STATE, U.CREATE_USER_ID, U.CREATE_USER_NAME, U.CREATE_DATE , E.ID E_ID, E.USER_ID E_USER_ID, E.UNIVERSITY_NAME E_UNIVERSITY_NAME, E.UNIVERSITY_ADDRESS E_UNIVERSITY_ADDRESS, E.COLLEGE E_COLLEGE, E.MAJOR E_MAJOR, E.STU_ID E_STU_ID, E.STATE E_STATE, E.CREATE_USER_ID E_CREATE_USER_ID, E.CREATE_USER_NAME E_CREATE_USER_NAME, E.CREATE_DATE E_CREATE_DATE , W.ID W_ID, W.USER_ID W_USER_ID, W.COMPANY W_COMPANY, W.YEARS W_YEARS, W.POSITION W_POSITION, W.CONTENT W_CONTENT, W.DESCRIPTION W_DESCRIPTION, W.STATE W_STATE, W.CREATE_USER_ID W_CREATE_USER_ID, W.CREATE_USER_NAME W_CREATE_USER_NAME, W.CREATE_DATE W_CREATE_DATE FROM user AS U LEFT JOIN edu_info E ON U.ID=E.USER_ID LEFT JOIN work_info W ON U.ID=W.USER_ID WHERE U.ID=?
+2022-09-29 14:13:53.585 DEBUG 11192 --- [http-nio-8001-exec-2] c.z.workPrepared.mapper.UserMapper.find  : ==> Parameters: 1(String)
+2022-09-29 14:13:53.611 DEBUG 11192 --- [http-nio-8001-exec-2] c.z.workPrepared.mapper.UserMapper.find  : <==      Total: 2

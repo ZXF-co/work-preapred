@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxf.workPrepared.mapper.UserMapper">
+
+    <resultMap id="baseResultMap" type="com.zxf.workPrepared.entity.User">
+        <id column="ID" property="id" jdbcType="VARCHAR"></id>
+        <result column="NAME" property="name" jdbcType="VARCHAR"></result>
+        <result column="GENDER" property="gender" jdbcType="VARCHAR"></result>
+        <result column="AGE" property="age" jdbcType="INTEGER"></result>
+        <result column="PHONE" property="phone" jdbcType="VARCHAR"></result>
+        <result column="DESCRIPTION" property="description" jdbcType="VARCHAR"></result>
+        <result column="STATE" property="state" jdbcType="VARCHAR"></result>
+        <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR"></result>
+        <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR"></result>
+        <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP"></result>
+
+        <association property="eduInfo" javaType="com.zxf.workPrepared.entity.EduInfo">
+            <id column="E_ID" property="id" jdbcType="VARCHAR"></id>
+            <result column="E_USER_ID" property="userId" jdbcType="VARCHAR"></result>
+            <result column="E_UNIVERSITY_NAME" property="universityName" jdbcType="VARCHAR"></result>
+            <result column="E_UNIVERSITY_ADDRESS" property="universityAddress" jdbcType="VARCHAR"></result>
+            <result column="E_COLLEGE" property="college" jdbcType="VARCHAR"></result>
+            <result column="E_MAJOR" property="major" jdbcType="VARCHAR"></result>
+            <result column="E_STU_ID" property="stuId" jdbcType="VARCHAR"></result>
+            <result column="E_STATE" property="state" jdbcType="VARCHAR"></result>
+            <result column="E_CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR"></result>
+            <result column="E_CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR"></result>
+            <result column="E_CREATE_DATE" property="createDate" jdbcType="TIMESTAMP"></result>
+        </association>
+
+        <collection property="workInfoList" ofType="com.zxf.workPrepared.entity.WorkInfo">
+            <id column="W_ID" property="id" jdbcType="VARCHAR"></id>
+            <result column="W_USER_ID" property="userId" jdbcType="VARCHAR"></result>
+            <result column="W_COMPANY" property="company" jdbcType="VARCHAR"></result>
+            <result column="W_YEARS" property="years" jdbcType="INTEGER"></result>
+            <result column="W_POSITION" property="position" jdbcType="VARCHAR"></result>
+            <result column="W_CONTENT" property="content" jdbcType="VARCHAR"></result>
+            <result column="W_DESCRIPTION" property="description" jdbcType="VARCHAR"></result>
+            <result column="W_STATE" property="state" jdbcType="VARCHAR"></result>
+            <result column="W_CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR"></result>
+            <result column="W_CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR"></result>
+            <result column="W_CREATE_DATE" property="createDate" jdbcType="TIMESTAMP"></result>
+        </collection>
+    </resultMap>
+
+    <sql id="base_table">user</sql>
+    <sql id="base_column">
+        U.ID, U.NAME, U.GENDER, U.AGE, U.PHONE, U.DESCRIPTION, U.STATE, U.CREATE_USER_ID, U.CREATE_USER_NAME, U.CREATE_DATE
+    </sql>
+
+    <sql id="table_edu_info">edu_info</sql>
+    <sql id="table_edu_info_column">
+        E.ID E_ID, E.USER_ID E_USER_ID, E.UNIVERSITY_NAME E_UNIVERSITY_NAME, E.UNIVERSITY_ADDRESS E_UNIVERSITY_ADDRESS, E.COLLEGE E_COLLEGE, E.MAJOR E_MAJOR,
+        E.STU_ID E_STU_ID, E.STATE E_STATE, E.CREATE_USER_ID E_CREATE_USER_ID, E.CREATE_USER_NAME E_CREATE_USER_NAME, E.CREATE_DATE E_CREATE_DATE
+    </sql>
+
+    <sql id="table_work_info">work_info</sql>
+    <sql id="table_work_info_column">
+        W.ID W_ID, W.USER_ID W_USER_ID, W.COMPANY W_COMPANY, W.YEARS W_YEARS, W.POSITION W_POSITION, W.CONTENT W_CONTENT,
+        W.DESCRIPTION W_DESCRIPTION, W.STATE W_STATE, W.CREATE_USER_ID W_CREATE_USER_ID, W.CREATE_USER_NAME W_CREATE_USER_NAME, W.CREATE_DATE W_CREATE_DATE
+    </sql>
+
+    <!--创建user信息-->
+    <insert id="insert" keyColumn="ID" keyProperty="id"
+            parameterType="com.zxf.workPrepared.entity.User">
+        INSERT INTO
+        <include refid="base_table"/>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            ID,
+            <if test="name != null">
+                `NAME`,
+            </if>
+            <if test="gender != null">
+                GENDER,
+            </if>
+            <if test="age != null">
+                AGE,
+            </if>
+            <if test="phone != null">
+                PHONE,
+            </if>
+            <if test="description != null">
+                DESCRIPTION,
+            </if>
+            <if test="state != null">
+                `STATE`,
+            </if>
+            <if test="createUserId != null">
+                CREATE_USER_ID,
+            </if>
+            <if test="createUserName != null">
+                CREATE_USER_NAME,
+            </if>
+            CREATE_DATE, REVISION,
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <choose>
+                <when test="id != null">
+                    #{id},
+                </when>
+                <otherwise>
+                    UUID(),
+                </otherwise>
+            </choose>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="gender != null">
+                #{gender},
+            </if>
+            <if test="age != null">
+                #{age},
+            </if>
+            <if test="phone != null">
+                #{phone},
+            </if>
+            <if test="description != null">
+                #{description},
+            </if>
+            <if test="state != null">
+                #{state},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId},
+            </if>
+            <if test="createUserName != null">
+                #{createUserName},
+            </if>
+            NOW(), #{revision},
+        </trim>
+    </insert>
+
+    <!--通过id查询user信息-->
+    <select id="find" parameterType="java.lang.String" resultMap="baseResultMap">
+        SELECT
+        <include refid="base_column"/>
+        , <include refid="table_edu_info_column"/>
+        , <include refid="table_work_info_column"/>
+        FROM
+        <include refid="base_table"/>
+        AS U
+        LEFT JOIN edu_info E ON U.ID=E.USER_ID
+        LEFT JOIN work_info W ON U.ID=W.USER_ID
+        WHERE U.ID=#{id}
+    </select>
+
+    <!--查询user列表信息-->
+    <select id="findAll" resultMap="baseResultMap">
+        SELECT
+        <include refid="base_column"/>
+        , <include refid="table_edu_info_column"/>
+        FROM
+        <include refid="base_table"/>
+        AS U
+        LEFT JOIN
+        <include refid="table_edu_info"/>
+        AS E ON U.ID=E.USER_ID
+    </select>
+
+    <!--更新user信息-->
+    <update id="update" parameterType="com.zxf.workPrepared.entity.User">
+        UPDATE
+        <include refid="base_table"/>
+        <set>
+            <if test="name != null">
+                NAME=#{name},
+            </if>
+            <if test="gender != null">
+                GENDER=#{gender},
+            </if>
+            <if test="age != null">
+                AGE=#{age},
+            </if>
+            <if test="phone != null">
+                PHONE=#{phone},
+            </if>
+            <if test="description != null">
+                DESCRIPTION=#{description},
+            </if>
+            <if test="state != null">
+                STATE=#{state},
+            </if>
+            REVISION=#{revisionNext},
+        </set>
+        WHERE ID=#{id} AND REVISION=#{revision}
+    </update>
+
+    <!--条件查询user列表信息-->
+    <select id="selectUser" parameterType="com.zxf.workPrepared.query.impl.UserQueryImpl" resultMap="baseResultMap">
+        SELECT
+        <include refid="base_column"/>
+        <if test="withEduInfo">
+            , <include refid="table_edu_info_column"/>
+        </if>
+        <if test="withWorkInfo">
+            , <include refid="table_work_info_column"/>
+        </if>
+        FROM
+        <include refid="base_table"/>
+        AS U
+        <if test="withEduInfo">
+            LEFT JOIN edu_info E ON U.ID=E.USER_ID
+        </if>
+        <if test="withWorkInfo">
+            LEFT JOIN work_info W ON U.ID=W.USER_ID
+        </if>
+        WHERE 1=1
+        <if test="id != null">
+            AND U.ID=#{id}
+        </if>
+        <if test="name != null">
+            AND U.NAME=#{name}
+        </if>
+        <if test="phone != null">
+            AND U.PHONE=#{phone}
+        </if>
+        <if test="gender != null">
+            AND U.GENDER=#{gender}
+        </if>
+    </select>
+
+    <!--添加user和post关联关系-->
+    <insert id="addPost" parameterType="com.zxf.workPrepared.tools.SharedQuery">
+        INSERT INTO user_post_rel(ID, USER_ID, POST_ID, CREATE_USER_ID, CREATE_USER_NAME, CREATE_DATE, REVISION)
+        VALUES
+        <foreach collection="queryList" item="postId" separator=",">
+            (UUID(), #{queryId}, #{postId}, #{createUserId}, #{createUserName}, #{createDate}, #{revision})
+        </foreach>
+    </insert>
+</mapper>
